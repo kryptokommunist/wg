@@ -1,0 +1,48 @@
+<div>
+<h1 class="text-center slide" style="margin-bottom: 50px"> WG Status <i class="fa fa-cog fa-spin"></i></h1>
+
+<div class="fade-in">
+<b>
+<% @mates.each do |mate| %>
+	<div class="col-md-4 text-center" style="margin-bottom: 30px;">
+	<img class="img-circle fade-in box-shadow" src="/assets/<%= mate.first_name.downcase %>.jpg" alt="mate" width="140" height="140">
+	<h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
+	
+	<div class="img-thumbnail" style=" background-color:rgba(256, 256, 256, 0.5)">
+	Geplant: <%= Area.find(mate.duties.last.area_id).name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") %><br>
+	Punkte: <%= mate.points %><br>
+	Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i><br>
+	</div>
+	</p>
+	</div>
+	
+<% end %>
+</b>
+</div>
+
+<div class="fade-in2">
+<% @areas.each do |area| %>
+	<div class="col-md-4 text-center" style="margin-bottom: 20px">
+	<div class="img-thumbnail" style="color: white; background-color:rgba(0, 0, 0, 0.3)">
+	<h2 style="margin-top: 0;"><%= area.name %>
+
+	<% if area.name == "Küche"%>
+		<%= content_tag(:i,"" , class: "fa fa-cutlery") %>
+	<% elsif area.name == "Bad"%>
+		<%= content_tag(:i, "" , class: "fa fa-recycle") %>
+	<% elsif area.name == "Wz./Flur"%>
+		<%= content_tag(:i, "", class: "fa fa-home") %>
+	<% end %>
+
+	</h2>
+	<b>
+	<%= "Geputzt: " + area.last_cleaned.strftime("%a, %d.%m um %H:%M") %><br>
+	Status: <%= area.clean? ? content_tag(:div, "Sauber", class: "label label-success") : content_tag(:div, "Dreckig", class: "label label-danger") %><br>
+	Sewancoins: <%= area.points %> <i class="fa fa-btc"></i>
+	</b>
+	</div>
+	</div>
+<% end %>
+
+</div>
+

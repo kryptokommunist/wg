@@ -1,0 +1,13 @@
+<div class="text-center fade-in" style="margin-top: 30%;">
+
+<div class="img-thumbnail" style="color: white; background-color:rgba(0, 0, 0, 0.3)">
+<h1 style="color: white; margin-top: 0;"><%= @mate.first_name + " – " + @duty.area.name %></h1>
+
+
+<%= form_tag(mate_path(@mate), method: 'patch',class: "form-inline") do %>
+    <%= hidden_field_tag('duty_id', @duty.id ) %>
+    <%= submit_tag("Geputzt", class: "btn btn-primary") %>
+<% end %>
+</div>
+
+</div>

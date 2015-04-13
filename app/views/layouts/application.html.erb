@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wg</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="gradient-primary" style="-moz-transform: scale(1.21); /* for Firefox, default 1*/
+    zoom:121%; /* For Chrome, IE, default 100%*/">
+
+<% flash.each do |message_type, message| %>
+    <div class="alert alert-<%= message_type %> fade-in"><%= message %></div>
+<% end %>
+
+    
+<%= yield %>
+
+
+
+</body>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+</html>
