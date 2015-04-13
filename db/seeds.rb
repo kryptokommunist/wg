@@ -52,11 +52,7 @@ marcus.duties.create!(area_id: Area.find_by(name: "Küche").id,
 					  accomplished_by_assigned: true,
 					  faulty: false)
 
-jakob.duties.create!(area_id: Area.find_by(name: "Wohnzimmer/Flur").id,
-					  due_to: sunday_at_22,
-					  accomplished_at: nil,
-					  accomplished_by_assigned: true,
-					  faulty: false)
+jakob.duties.create!(area_id: Area.find_by(name: "Wz./Flur").id,due_to: sunday_at_22,accomplished_at: nil,accomplished_by_assigned: true,faulty: false)
 
 marius.duties.create!(area_id: Area.find_by(name: "Bad").id,
 					  due_to: sunday_at_22,
