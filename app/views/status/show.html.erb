@@ -5,7 +5,7 @@
 <% @mates.each do |mate| %>
 	<div class="col-md-4 text-center">
 		<div class="fade-in" style="margin-bottom: 30px;">
-			<img class="img-circle fade-in box-shadow" src="/assets/<%= mate.first_name.downcase %>.jpg" alt="mate" width="140" height="140">
+			<img class="img-circle fade-in box-shadow" src="<%= asset_path(mate.first_name.downcase + ".jpg")%>" alt="mate" width="140" height="140">
 			<h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
 			<div class="img-thumbnail" style=" background-color:rgba(256, 256, 256, 0.5)">
 				Geplant: <%= Area.find(mate.duties.last.area_id).name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") %><br>
