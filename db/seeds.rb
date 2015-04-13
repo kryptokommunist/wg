@@ -16,7 +16,7 @@ Area.create!(name: "Bad",
 		     points: 15,
 		     last_cleaned: 4.days.ago,
 		     )
-Area.create!(name: "Wohnzimmer/Flur",
+Area.create!(name: "Wz./Flur",
 		     clean: true,
 		     points: 8,
 		     last_cleaned: 1.days.ago,
@@ -52,7 +52,11 @@ marcus.duties.create!(area_id: Area.find_by(name: "Küche").id,
 					  accomplished_by_assigned: true,
 					  faulty: false)
 
-jakob.duties.create!(area_id: Area.find_by(name: "Wz./Flur").id,due_to: sunday_at_22,accomplished_at: nil,accomplished_by_assigned: true,faulty: false)
+jakob.duties.create!(area_id: Area.find_by(name: "Wz./Flur").id,
+					 due_to: sunday_at_22,
+					 accomplished_at: nil,
+					 accomplished_by_assigned: true,
+					 faulty: false)
 
 marius.duties.create!(area_id: Area.find_by(name: "Bad").id,
 					  due_to: sunday_at_22,
