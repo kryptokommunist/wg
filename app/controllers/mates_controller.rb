@@ -22,20 +22,17 @@ class MatesController < ApplicationController
 		if x
 			duty.update_attribute(:accomplished_at, Time.zone.now)
 			mate.update_attribute(:points, mate.points + duty.area.points)
-			
+
 			mate.reload
 
 			edit_path = edit_mate_path(mate, duty_id: mate.duties.last.id)
-			message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}.
-						 Deine nächste Aufgabe: #{mate.duties.last.area.name}.
-						 Deadline: #{mate.duties.last.due_to}.
-						 Link: #{edit_path}"""
+			message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}. \n Deine nächste Aufgabe: #{mate.duties.last.area.name}. \n Deadline: #{mate.duties.last.due_to}. \n Link: #{edit_url}"""
 			send_message(mate.mobile_number, message)
 
 			duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 			flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 			
-			redirect_to root_path	
+			redirect_to root_path
 		else
 			flash[:danger] = "Fehler beim Aufgabenerzeugen!"
 			redirect_to root_path

@@ -7,7 +7,6 @@ class CreateMates < ActiveRecord::Migration
       t.string :email
       t.integer :points
       t.integer :balance
-      t.integer :current_duty_id
 
       t.timestamps null: false
     end
