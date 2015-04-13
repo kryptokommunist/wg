@@ -16,7 +16,7 @@
 
 		<% @area = mate.duties.last.area %>
 
-		<div class="fade-in2">
+		<div class="fade-in2" style="margin-bottom: 50px;">
 			<div class="img-thumbnail" style="color: white; background-color:rgba(0, 0, 0, 0.3)">
 				<h2 style="margin-top: 0;"><%= render 'area_title' %></h2>
 				<%= "Geputzt: " + @area.last_cleaned.strftime("%a, %d.%m um %H:%M") %><br>
