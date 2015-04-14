@@ -1,0 +1,30 @@
+
+<div class="col-md-offset-4" style="margin-top: 30px">
+
+<%= render @mate %>
+
+<div class="col-md-3 text-center fade-in2">
+
+<div class="img-thumbnail" style="color: white; background-color:rgba(0, 0, 0, 0.3)" style="margin-bottom: 30px">
+
+<p>Ich habe gereinigt:</p>
+
+<table >
+<% @areas.each do |area| %>
+<tr>
+<p>
+<td width="80%" style="padding-bottom: .5em">
+<button type="button" class="btn btn-<%= area.clean? ? 'success' : 'danger' %>" style="width: 100%"><%= area.name %></button> 
+</d>
+<td style="padding-bottom: .5em">
+<b><%= area.points %></b>
+</td>
+</p>
+</tr>
+<% end %>
+</table>
+
+</div>
+
+</div>
+</div>

@@ -22,6 +22,26 @@ Area.create!(name: "Wz./Flur",
 		     last_cleaned: 1.days.ago,
 		     )
 
+Area.create!(name: "Staubsauger",
+		     clean: true,
+		     points: 8,
+		     last_cleaned: 1.days.ago,
+		     )
+
+Area.create!(name: "Kühlschrank",
+		     clean: true,
+		     points: 17,
+		     last_cleaned: 1.days.ago,
+		     )
+
+
+Area.create!(name: "Müll",
+		     clean: true,
+		     points: 4,
+		     last_cleaned: 1.days.ago,
+		     )
+
+
 marcus = Mate.create!(first_name: "Marcus",
 			 last_name: "Ding",
 			 mobile_number: "+4917695855565",

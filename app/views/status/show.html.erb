@@ -1,30 +1,5 @@
 <h1 class="text-center slide" style="margin-bottom: 50px"> WG Status <i class="fa fa-cog fa-spin"></i></h1>
 
-
 <b>
-<% @mates.each do |mate| %>
-	<div class="col-md-4 text-center">
-		<div class="fade-in" style="margin-bottom: 30px;">
-			<img class="img-circle fade-in box-shadow" src="<%= asset_path(mate.first_name.downcase + ".jpg")%>" alt="mate" width="140" height="140">
-			<h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
-			<div class="img-thumbnail" style=" background-color:rgba(256, 256, 256, 0.5)">
-				Geplant: <%= Area.find(mate.duties.last.area_id).name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") %><br>
-				Punkte: <%= mate.points %><br>
-				Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i><br>
-			</div>
-		</div>
-
-		<% @area = mate.duties.last.area %>
-
-		<div class="fade-in2" style="margin-bottom: 50px;">
-			<div class="img-thumbnail" style="color: white; background-color:rgba(0, 0, 0, 0.3)">
-				<h2 style="margin-top: 0;"><%= render 'area_title' %></h2>
-				<%= "Geputzt: " + @area.last_cleaned.strftime("%a, %d.%m um %H:%M") %><br>
-				Status: <%= @area.clean? ? content_tag(:div, "Sauber", class: "label label-success") : content_tag(:div, "Dreckig", class: "label label-danger") %><br>
-				Sewancoins: <%= @area.points %> <i class="fa fa-btc"></i>
-			</div>
-		</div>
-	</div>
-	
-<% end %>
+<%= render @mates %>
 </b>

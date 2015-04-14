@@ -1,6 +1,14 @@
 
 class MatesController < ApplicationController
 
+	def show
+		if @mate = Mate.find_by(id: params[:id])
+			@areas = Area.all
+		else
+			flash[:danger] = "Mate id nicht gefunden" 
+			redirect_to root_path
+		end
+	end
 
 	def edit
 		@mate = Mate.find_by(id: params[:id])
@@ -21,6 +29,7 @@ class MatesController < ApplicationController
 							faulty: false)
 		if x
 			duty.update_attribute(:accomplished_at, Time.zone.now)
+			duty.area.update_attribute(:clean, true)
 			mate.update_attribute(:points, mate.points + duty.area.points)
 
 			mate.reload
