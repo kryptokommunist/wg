@@ -19,12 +19,15 @@
 </div>
 <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
     <div data-role="content">
-        <ul data-role="listview" data-inset="true">
-            <li data-role="list-divider">List view</li>
-            <li data-icon="home">item</li>
-            <li data-icon="home">item</li>
-            <li data-icon="home">item</li>
-        </ul>
+            <% @areas.each do |area| %>
+       
+                    <form style="text-align : right;">
+                        <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label>
+                         <option selected="selected" value="on"></option>
+                        <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b">
+                    </form>
+
+            <% end %>
         <div data-role="collapsible">
              <h3>Collapsible</h3>
 
