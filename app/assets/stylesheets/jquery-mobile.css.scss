@@ -1,2 +1,19 @@
 @import "jquery.mobile";
 @import "font-awesome";
+
+
+.img-circle {
+  border-radius: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.box-shadow{
+    -moz-box-shadow: 0px 0px 0px 5px #FFFFFF; /* Firefox */
+
+    -webkit-box-shadow: 0px 0px 0px 5px #FFFFF; /* Safari, Chrome  #e8e6e6 */
+
+    box-shadow: 0px 0px 0px 5px #FFFFFF; /* CSS3 */
+}
