@@ -1,0 +1,38 @@
+<div data-role="panel" id="left-panel" data-display="push" data-position="left" data-theme="b">
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">Bewohner</li>
+        <% @mates.each do |mate| %>
+            
+            <li data-icon="home"><a href="#<%= mate.first_name.downcase %>"><%= mate.first_name %></a></li>
+
+        <% end %>
+        </ul>
+        <div data-role="collapsible">
+             <h3>Collapsible</h3>
+
+            <p>I'm a collapsible</p>
+        </div>
+        <input type="text" placeholder="Text" /><a href="#" class="ui-btn">Anchor</a>
+
+    </div>
+</div>
+<div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
+    <div data-role="content">
+        <ul data-role="listview" data-inset="true">
+            <li data-role="list-divider">List view</li>
+            <li data-icon="home">item</li>
+            <li data-icon="home">item</li>
+            <li data-icon="home">item</li>
+        </ul>
+        <div data-role="collapsible">
+             <h3>Collapsible</h3>
+
+            <p>I'm a collapsible</p>
+        </div>
+        <input type="text" placeholder="Text" /><a href="#" class="ui-btn">Anchor</a>
+
+    </div>
+</div>
+
+ <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>

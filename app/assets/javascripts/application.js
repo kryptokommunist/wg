@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// for mobile ui
+//= require jquery
+//= require jquery_ujs
+//= require jquery.mobile

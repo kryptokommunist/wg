@@ -1,0 +1,21 @@
+		<div class="text-center">
+		<%= link_to image_tag(asset_path(mate.first_name.downcase + ".jpg"), class: "img-circle fade-in box-shadow", alt: "mate", width: "140", height: "140"), mate %>
+
+
+			<h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
+		
+			<ul data-role="listview" data-inset="true">
+				<li>Geplant: <%= Area.find(mate.duties.last.area_id).name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") %></li>
+				<li>Punkte: <%= mate.points %></li>
+				<li>Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i></li>
+			</ul>
+	
+		<% area =  mate.duties.last.area %>
+		<h2><%= render 'areas/area_title', area: area %></h2>
+		<ul data-role="listview" data-inset="true">
+				
+				<li><%= "Geputzt: " + area.last_cleaned.strftime("%a, %d.%m um %H:%M") %></li>
+				<li>Status: <%= area.clean? ? content_tag(:div, "Sauber", class: "label label-success") : content_tag(:div, "Dreckig", class: "label label-danger") %></li>
+				<li>Sewancoins: <%= area.points %> <i class="fa fa-btc"></i></li>
+	    </ul>
+	    </div>
