@@ -4,20 +4,20 @@
 /* Custom indentations are needed because the length of custom labels differs from
    the length of the standard labels */
 .custom-size-flipswitch.ui-flipswitch .ui-btn.ui-flipswitch-on {
-  text-indent: -3.5em;
+  text-indent: -4.2em;
 }
 .custom-size-flipswitch.ui-flipswitch .ui-flipswitch-off {
-  text-indent: 0.1em;
+  text-indent: 0.5em;
 }
 /* Custom widths are needed because the length of custom labels differs from
    the length of the standard labels */
 .custom-size-flipswitch.ui-flipswitch {
-  width: 5.375em; /*5.875em;*/
+  width: 6.375em; /*5.875em;*/
 }
 
 .custom-size-flipswitch.ui-flipswitch.ui-flipswitch-active {
 
-  padding-left: 3.5em;
+  padding-left: 4.5em;
   width: 1.875em;
 
   }
