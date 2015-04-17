@@ -14,15 +14,20 @@
 </div>
 <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
     <div data-role="content">
+            <table>
             <% @areas.each do |area| %>
-       
-                    <form style="text-align : right;">
-                        <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label>
-                         <option selected="selected" value="on"></option>
-                        <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckg" data-off-text="saubr" data-wrapper-class="custom-size-flipswitch" data-theme="b">
+                    <tr>
+                    <form>
+                        
+                        
+                       <td> <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label> </td>
+                         
+                        <td> <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckg" data-off-text="saubr" data-wrapper-class="custom-size-flipswitch" data-theme="b"> </td>
                     </form>
+                    </tr>
 
             <% end %>
+            </table>
         <a href="#start" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
 
     </div>
