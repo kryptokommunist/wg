@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root 'status#show'
   resources :mates, only: [:show,:edit,:update]
-  resources :areas, only: [:show]
+  resources :areas, only: [:edit]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

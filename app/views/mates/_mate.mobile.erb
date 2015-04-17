@@ -12,22 +12,14 @@
 
 	<% area =  mate.duties.last.area %>
 	<h2><%= render 'areas/area_title', area: area %></h2>
+	<%= link_to edit_area_path(area), remote: true do %>
+    <button>Edit</button>
+  	<% end %>	
+	
 	<ul data-role="listview" data-inset="true">
 		
 		<li><%= "Geputzt: " + area.last_cleaned.strftime("%a, %d.%m um %H:%M") %></li>
-		<li>Status: <%= area.clean? ? content_tag(:div, "Sauber", class: "label label-success") : content_tag(:div, "Dreckig", class: "label label-danger") %></li>
+		<li>Status: <%= area.clean? ? content_tag(:div, "Sauber", class: "label label-success", id: "form-#{area.id}") : content_tag(:div, "Dreckig", class: "label label-danger", id: "form-#{area.id}") %></li>
 		<li>Sewancoins: <%= area.points %> <i class="fa fa-btc"></i></li>
 	</ul>
 </div>
-
-<script>
-$.ajax({
-          type: "POST",
-          url: '/admin/pages/1.json',
-          data: { _method:'PUT', page : {...} },
-          dataType: 'json',
-          success: function(msg) {
-            alert( "Data Saved: " + msg );
-          }
-});
-</script>

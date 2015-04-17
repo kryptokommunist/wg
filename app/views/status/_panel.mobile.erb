@@ -1,35 +1,32 @@
 <div data-role="panel" id="left-panel" data-display="push" data-position="left" data-theme="b">
     <div data-role="content">
         <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider">Bewohner</li>
-        <% @mates.each do |mate| %>
-            
-            <li data-icon="home"><a href="#<%= mate.first_name.downcase %>"><%= mate.first_name %></a></li>
-
-        <% end %>
+            <li data-role="list-divider">Bewohner</li>
+            <% @mates.each do |mate| %> 
+               <li data-icon="home"><a href="#<%= mate.first_name.downcase %>"><%= mate.first_name %></a></li>
+            <% end %>
         </ul>
-         <a href="#start" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
-
+        <a href="#start" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
     </div>
 </div>
+
 <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="a">
     <div data-role="content">
-            <table>
-            <% @areas.each do |area| %>
-                    <tr>
-                    <form>                     
-                        
-                       <td> <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label> </td>
-                         
-                        <td> <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b"> </td>
-                    </form>
-                    </tr>
+        <table>
+        <% @areas.each do |area| %>
+            <tr>
+            <form>                    
+                <td> 
+                    <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label>
+                </td>
+                <td>
+                    <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b">
+                </td>
+            </form>
+            </tr>
 
-            <% end %>
-            </table>
+        <% end %>
+        </table>
         <a href="#start" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
-
     </div>
 </div>
-
- <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
