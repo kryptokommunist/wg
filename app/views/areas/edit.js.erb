@@ -1,0 +1,8 @@
+label = $('#form-<%= @area.id %>');
+label.fadeOut(300, function(){
+
+	label.attr("class","label <%= @area.clean? ? "label-success" : "label-danger" %>");
+	label.text("<%= @area.clean? ? "Sauber" : "Dreckig" %>");
+	label.fadeIn(800);
+
+});
