@@ -41,11 +41,17 @@ $(function () {
 <% @areas.each do |area| %>
                 <% flip = %Q($("#flip-checkbox-#{area.id}").prop("checked", true);) %>
                 <%= raw flip unless area.clean? %>
-                 $("#flip-checkbox-<%= area.id %>").on("change",function(event, ui) {
+                 flipbox<%= area.id %> = $("#flip-checkbox-<%= area.id %>")
+                 flipbox<%= area.id %>.on("change",function(event, ui) {
 
                             $.ajax({url: "areas/<%= area.id %>/edit", type: "GET", data_type: "json", async: false});
-
-                            //alert( "Wert von " + $("#flip-checkbox-label-<%= area.id %>").text() + " geändert.");
+                            //flipbox<%= area.id %>.flipswitch({ disabled: true });
+    
+                            //setTimeout( function() {
+                            //   flipbox<%= area.id %>.flipswitch({ disabled: false });
+                            //}, 600 );
+                            
+                            //Timeout and disabling 
                  });
 <% end %>
 
