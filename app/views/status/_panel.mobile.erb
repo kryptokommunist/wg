@@ -17,16 +17,32 @@
             <tr>
             <form>                    
                 <td> 
-                    <label for="flip-checkbox-3" style="display: inline; "><%= area.name %></label>
+                    <label for="flip-checkbox-3" style="display: inline;" id="flip-checkbox-label-<%= area.id %>"><%= area.name %></label>
                 </td>
+                <option selected value="on">On</option>
                 <td>
-                    <input type="checkbox" data-role="flipswitch" name="flip-checkbox-3" id="flip-checkbox-3" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b">
+                    <input type="checkbox" data-role="flipswitch" name="flip-checkbox-<%= area.id %>" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b" id="flip-checkbox-<%= area.id %>" data-value="on">
                 </td>
             </form>
             </tr>
-
         <% end %>
         </table>
         <a href="#start" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
     </div>
 </div>
+
+
+<script>
+
+<% @areas.each do |area| %>
+                <% flip = %Q($("#flip-checkbox-#{area.id}").prop("checked", true);) %>
+                <%= raw flip if area.clean? %>
+                 $("#flip-checkbox-<%= area.id %>").on("change",function(event, ui) {
+
+                            $.ajax({url: "areas/<%= area.id %>/edit", type: "GET"});
+
+                            //alert( "Wert von " + $("#flip-checkbox-label-<%= area.id %>").text() + " geändert.");
+                 });
+<% end %>
+
+</script>
