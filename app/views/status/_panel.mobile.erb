@@ -38,7 +38,7 @@
                 <%= raw flip unless area.clean? %>
                  $("#flip-checkbox-<%= area.id %>").on("change",function(event, ui) {
 
-                            $.ajax({url: "areas/<%= area.id %>/edit", type: "GET"});
+                            $.ajax({url: "areas/<%= area.id %>/edit", type: "GET", data_type: "json", async: false});
 
                             //alert( "Wert von " + $("#flip-checkbox-label-<%= area.id %>").text() + " geändert.");
                  });
