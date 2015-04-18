@@ -1,10 +1,9 @@
-<%= link_to image_tag(asset_path(mate.first_name.downcase + ".jpg"), class: "img-circle fade-in box-shadow", alt: "mate", width: "140", height: "140"), '#' + mate.first_name %>
-
+<%= link_to image_tag(asset_path(mate.first_name.downcase + ".jpg"), class: "img-circle fade-in box-shadow", alt: "mate", width: "140", height: "140"), "##{mate.first_name.downcase}" %>
 
 <h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
 
 <ul data-role="listview" data-inset="true">
-	<li>Geplant: <%= Area.find(mate.duties.last.area_id).name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") %></li>
+	<li>Geplant: <%= mate.duties.last.area.name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") + " (noch #{days_till_deadline mate})" %></li>
 	<li>Punkte: <%= mate.points %></li>
 	<li>Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i></li>
 </ul>

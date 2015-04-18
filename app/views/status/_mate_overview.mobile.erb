@@ -1,14 +1,35 @@
 <div class="text-center">
 	
-	<%= render mate %>
+<%= link_to image_tag(asset_path(mate.first_name.downcase + ".jpg"), class: "img-circle fade-in box-shadow", alt: "mate", width: "140", height: "140"), '#' + mate.first_name %>
+
+
+<h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
 
 	<div data-role="collapsible" data-theme="b" data-content-theme="b">
 	    <h2>Wähle erledigte Aufgabe...</h2>
 	    <ul data-role="listview">
 	        <% @areas.each do |area| %>
-				<li><a href="index.html"><%= area.name %><span style="width: 7em;float: right;"><%= render 'shared/label', area: area %></span><span class="ui-li-count" style="width: 4.5em;"><%= area.points %> Pkt.</span></a></li>
+				<li>
+					<a href="#" onClick="cleaned_area(this.id, <%= mate.id %>)" id="<%= area.id %>" >
+					<%= area.name %>
+					<%= raw " (noch #{days_till_deadline mate})" if mate.duties.last.area == area %>
+						<span style="width: 7em;float: right;">
+							<%= render 'shared/label', area: area %>
+						</span>
+						<span class="ui-li-count" style="width: 4.5em;">
+							<%= area.points %> Pkt.
+							</span>
+					</a>
+				</li>
 	        <% end %>
 	    </ul>
 	</div>
+
+<ul data-role="listview" data-inset="true">
+	<li>Geplant: <%= mate.duties.last.area.name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") + " (noch #{days_till_deadline mate})" %></li>
+	<li>Punkte: <%= mate.points %></li>
+	<li>Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i></li>
+</ul>
+
 </div>
 	

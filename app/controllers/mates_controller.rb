@@ -12,59 +12,69 @@ class MatesController < ApplicationController
 
 	def edit
 		@mate = Mate.find_by(id: params[:id])
-		@duty = Duty.find_by(id: params[:duty_id])
+		@duty = @mate.duties.last
 		check_mate_duty(@mate, @duty)
-		
 	end
 
 	def update
 		mate = Mate.find_by(id: params[:id])
-		duty = Duty.find_by(id: params[:duty_id])
-		check_mate_duty(mate, duty)
+		duty = mate.duties.last
+		area_id = params[:area_id].to_i
+
+		if check_mate_duty(mate, duty, area_id)
 		
-		x = mate.duties.create!(area_id: next_area(duty.area_id),
-							due_to: this_sunday,
-							accomplished_by_assigned: true,
-							accomplished_at: nil,
-							faulty: false)
-		if x
-			duty.update_attribute(:accomplished_at, Time.zone.now)
-			duty.area.update_attribute(:clean, true)
-			mate.update_attribute(:points, mate.points + duty.area.points)
+			x = mate.duties.create!(area_id: next_area(duty.area_id),
+									due_to: this_sunday,
+									accomplished_by_assigned: true,
+									accomplished_at: nil,
+									faulty: false)
+			if x
+				duty.update_attribute(:accomplished_at, Time.zone.now)
+				duty.area.update_attribute(:clean, true)
+				mate.update_attribute(:points, mate.points + duty.area.points)
+				duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
-			mate.reload
+				mate.reload # for access to new task in sms
 
-			edit_path = edit_mate_path(mate, duty_id: mate.duties.last.id)
-			message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}. \n Deine nächste Aufgabe: #{mate.duties.last.area.name}. \n Deadline: #{mate.duties.last.due_to}. \n Link: #{edit_url}"""
-			send_message(mate.mobile_number, message)
+				edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
+				message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}. \n Deine nächste Aufgabe: #{mate.duties.last.area.name}. \n Deadline: #{mate.duties.last.due_to}. \n Link: #{edit_url}"""
+				send_message(mate.mobile_number, message)
 
-			duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
-			flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
-			
-			redirect_to root_path
-		else
-			flash[:danger] = "Fehler beim Aufgabenerzeugen!"
-			redirect_to root_path
+				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
+				@error = nil
+			else
+				@error = "Fehler beim Aufgabenerzeugen!"
+				flash[:danger] = @error
+			end
+		end
+
+		respond_to do |format|
+		    format.js
 		end
 	end
 
 	private
 
-		def check_mate_duty(mate, duty)
+		def check_mate_duty(mate, duty, area_id)
 			if mate && duty
-				if mate.id != duty.mate_id
-					flash[:danger] = "Falsche Aufgabe!" 
-					redirect_to root_path
-		   		 elsif duty.accomplished_at # if not nil, duty has already been accomplished
-					flash[:danger] = "Bereits erledigt!"
-					redirect_to root_path
-				end		
+				if (mate.id != duty.mate_id) || (duty.area.id != area_id)
+					@error = "Falsche Aufgabe!"
+					flash[:danger] = @error
+					return false
+		   		elsif duty.accomplished_at # if not nil, duty has already been accomplished
+		   			@error = "Bereits erledigt!"
+					flash[:danger] = @error
+					return false
+				end
+				return true
 			else
-				flash[:danger] = "Falsche User/Duty ID!"
-				redirect_to root_path
+				@error = "Falsche User/Duty ID!"
+				flash[:danger] = @error
+				return false
 			end
 		end
 
+		# assuming only the first three areas are distributed
 		def next_area(current_id)
 			next_id = current_id + 1
 			return next_id if (next_id <= 3)
@@ -85,7 +95,7 @@ class MatesController < ApplicationController
 		# set up a client to talk to the Twilio REST API 
 		client = Twilio::REST::Client.new account_sid, auth_token 
 		 
-		client.account.messages.create({:from => '+19103781260', :to => number, :body => message,  })
+		client.account.messages.create({:from => '+4915735981100', :to => number, :body => message,  })
 		end
 
 end
