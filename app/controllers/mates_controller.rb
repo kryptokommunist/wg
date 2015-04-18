@@ -24,7 +24,7 @@ class MatesController < ApplicationController
 		if check_mate_duty(mate, duty, area_id)
 		
 			x = mate.duties.create!(area_id: next_area(duty.area_id),
-									due_to: this_sunday,
+									due_to: next_sunday(duty.due_to),
 									accomplished_by_assigned: true,
 									accomplished_at: nil,
 									faulty: false)
@@ -38,7 +38,12 @@ class MatesController < ApplicationController
 
 				edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
 				message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}. \n Deine nächste Aufgabe: #{mate.duties.last.area.name}. \n Deadline: #{mate.duties.last.due_to}. \n Link: #{edit_url}"""
-				send_message(mate.mobile_number, message)
+				 
+				begin
+   					send_message(mate.mobile_number, message)
+    			rescue Exception => ex
+  					@error = ex.message
+				end
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 				@error = nil
@@ -81,8 +86,9 @@ class MatesController < ApplicationController
 			return 1
 		end
 
-		def this_sunday
+		def next_sunday(due_to_date)
 			right_now = Time.zone.now
+			right_now += 7.days if right_now <= due_to_date
             sunday_at_22 = right_now + (7 - right_now.wday).days + (22 - right_now.hour).hours + (0 - right_now.min).minutes + (0 - right_now.sec).second
         end
 
