@@ -42,7 +42,7 @@ class MatesController < ApplicationController
 				begin
    					send_message(mate.mobile_number, message)
     			rescue Exception => ex
-  					@error = ex.message
+  					@error = ex.message + "\n\n" + ex.backtrace.join("\n")
 				end
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
