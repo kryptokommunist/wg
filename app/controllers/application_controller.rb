@@ -4,6 +4,5 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   has_mobile_fu
-  #before_filter :force_mobile_format
 
 end
