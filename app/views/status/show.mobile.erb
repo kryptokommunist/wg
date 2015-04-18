@@ -1,33 +1,27 @@
 <div data-role="page" id="start">
     <%= render 'header' %>
     <div data-role="content">
-        <%= render @mates %>
+        <div class="text-center">
+	        <% @mates.each do |mate| %>
+		        <%= render mate %>
+		        <%= render mate.duties.last.area %>
+		    <% end %>
+        </div>
     </div>
 </div>
 
-
-
 <%= render 'panel' %>
 
-</div>
-
 <% @mates.each do |mate| %>
-<div data-role="page" id="<%= mate.first_name.downcase %>" data-theme="a" data-url="<%= mate.first_name.downcase %>">
-<%= render 'header' %>
+	<div data-role="page" id="<%= mate.first_name.downcase %>" data-theme="a" data-url="<%= mate.first_name.downcase %>">
+		<%= render 'header' %>
+		<div data-role="content">
+			
+	        	<%= render 'mate_overview', mate: mate  %>
 
-	<div data-role="content">
-		
-        	<%= render 'mate_overview', mate: mate  %>
-
+		</div>
 	</div>
-</div>
 <% end %>
 
 
-
-<script>
-$(function () {
-    $("[data-role=panel]").panel().enhanceWithin();
-});
-</script>
 

@@ -1,0 +1,8 @@
+<h2><%= render 'shared/area_title', area: area %></h2>
+
+<ul data-role="listview" data-inset="true">
+	
+	<li><%= "Geputzt: " + area.last_cleaned.strftime("%a, %d.%m um %H:%M") %></li>
+	<li>Status: <%= render 'shared/label', area: area %></li>
+	<li>Sewancoins: <%= area.points %> <i class="fa fa-btc"></i></li>
+</ul>
