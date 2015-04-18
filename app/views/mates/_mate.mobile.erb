@@ -12,9 +12,6 @@
 
 	<% area =  mate.duties.last.area %>
 	<h2><%= render 'areas/area_title', area: area %></h2>
-	<%= link_to edit_area_path(area), remote: true do %>
-    <button>Edit</button>
-  	<% end %>	
 	
 	<ul data-role="listview" data-inset="true">
 		
