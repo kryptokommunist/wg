@@ -22,7 +22,7 @@ function flipped_checkbox(element)
 
 	area_id = element.name;
     $.ajax({url: "areas/" + area_id + "/edit", type: "GET", data_type: "json", async: false});
-
+    
     element = $(".panel-switch")
 
     //Timeout and disabling, otherwise fast switching might break the label switching
