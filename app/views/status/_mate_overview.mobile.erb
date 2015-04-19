@@ -11,14 +11,13 @@
 	        <% @areas.each do |area| %>
 				<li>
 					<a href="#" onClick="cleaned_area(this.id, <%= mate.id %>)" id="<%= area.id %>" >
-					<%= area.name %>
-					<%= raw " (noch #{days_till_deadline mate})" if mate.duties.last.area == area %>
+						<%= area.name %>
 						<span style="width: 7em;float: right;">
 							<%= render 'shared/label', area: area %>
 						</span>
 						<span class="ui-li-count" style="width: 4.5em;">
 							<%= area.points %> Pkt.
-							</span>
+						</span>
 					</a>
 				</li>
 	        <% end %>
@@ -26,9 +25,9 @@
 	</div>
 
 <ul data-role="listview" data-inset="true">
-	<li>Geplant: <%= mate.duties.last.area.name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") + " (noch #{days_till_deadline mate})" %></li>
-	<li>Punkte: <%= mate.points %></li>
-	<li>Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i></li>
+	<li><%= mate.duties.last.area.name %> bis <span class="due_to-<%= mate.id %>"><%= mate.duties.last.due_to.strftime("%a, %d.%m") + " (noch #{days_till_deadline mate})" %></span></li>
+	<li>Punkte: <span class="points-<%= mate.id %>"><%= mate.points %></span></li>
+	<li>Guthaben: <span class="balace-<%= mate.id %>"><%= mate.balance %></span> <i class="fa fa-btc"></i></li>
 </ul>
 
 </div>

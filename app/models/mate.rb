@@ -4,4 +4,9 @@ class Mate < ActiveRecord::Base
 	validates :mobile_number, uniqueness: true
 
 	has_many :duties
+
+	# return the current open duty
+	def current_duty
+		self.duties.find_by(accomplished_at: nil)
+	end
 end

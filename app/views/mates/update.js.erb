@@ -1,2 +1,16 @@
+// show dialog located in page div in /views/status/show.mobile.erb
 $("#dialog-content").text("<%= @error ? @error : "Datenbank aktualisiert!" %>");
 $.mobile.changePage( "#dialog", { role: "dialog", transition: "flip"} );
+// update the labels accordingly
+label = $('.form-<%= @area.id %>');
+label.fadeOut(300, function(){
+
+	label.attr("class","label <%= @area.clean? ? "label-success" : "label-danger" %> form-<%= @area.id %>");
+	label.text("<%= @area.clean? ? "Sauber" : "Dreckig" %>");
+	label.fadeIn(800);
+
+});
+// update mate attributes accordingly
+$(".due_to-<%= @mate.id %>").text("<%= deadline @mate %>");
+$(".points-<%= @mate.id %>").text("<%= @mate.points %>");
+$(".balance-<%= @mate.id %>").text("<%= @mate.balance %>");

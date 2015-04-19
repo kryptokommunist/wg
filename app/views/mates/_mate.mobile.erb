@@ -3,7 +3,7 @@
 <h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
 
 <ul data-role="listview" data-inset="true">
-	<li>Geplant: <%= mate.duties.last.area.name %> bis <%= mate.duties.last.due_to.strftime("%a der %d.%m") + " (noch #{days_till_deadline mate})" %></li>
-	<li>Punkte: <%= mate.points %></li>
-	<li>Guthaben: <%= mate.balance %> <i class="fa fa-btc"></i></li>
+	<li><%= mate.duties.last.area.name %> bis <span class="due_to-<%= mate.id %>"><%= deadline mate %></span></li>
+	<li>Punkte: <span class="points-<%= mate.id %>"><%= mate.points %></span></li>
+	<li>Guthaben: <span class="balace-<%= mate.id %>"><%= mate.balance %></span> <i class="fa fa-btc"></i></li>
 </ul>
