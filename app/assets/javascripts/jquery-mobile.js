@@ -20,11 +20,12 @@ $(function () {
 function flipped_checkbox(area_id)
 {
     $.ajax({url: "areas/" + area_id + "/edit", type: "GET", data_type: "json", async: false});
+    setTimeout(500);
     //flipbox<%= area.id %>.flipswitch({ disabled: true });
 
     //setTimeout( function() {
     //   flipbox<%= area.id %>.flipswitch({ disabled: false });
     //}, 600 );
     
-    //Timeout and disabling 
+    //Timeout and disabling
 }
