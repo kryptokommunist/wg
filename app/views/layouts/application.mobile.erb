@@ -6,7 +6,6 @@
   <title>Putzplan</title>
   <%= stylesheet_link_tag  'jquery-mobile', media: 'all', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'jquery-mobile', 'data-turbolinks-track' => false %>
 </head>
 
 <body>
@@ -14,5 +13,7 @@
 	<%= yield %>
 
 </body>
+
+<%= javascript_include_tag 'jquery-mobile', 'data-turbolinks-track' => false %>
 
 </html>

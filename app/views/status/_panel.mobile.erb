@@ -29,30 +29,3 @@
         <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
     </div>
 </div>
-
-<script>
-$(function () {
-    $("[data-role=panel]").panel().enhanceWithin();
-});
-</script>
-
-<script>
-
-<% @areas.each do |area| %>
-                <% flip = %Q($("#flip-checkbox-#{area.id}").prop("checked", true);) %>
-                <%= raw flip unless area.clean? %>
-                 flipbox<%= area.id %> = $("#flip-checkbox-<%= area.id %>")
-                 flipbox<%= area.id %>.on("change",function(event, ui) {
-
-                            $.ajax({url: "areas/<%= area.id %>/edit", type: "GET", data_type: "json", async: false});
-                            //flipbox<%= area.id %>.flipswitch({ disabled: true });
-    
-                            //setTimeout( function() {
-                            //   flipbox<%= area.id %>.flipswitch({ disabled: false });
-                            //}, 600 );
-                            
-                            //Timeout and disabling 
-                 });
-<% end %>
-
-</script>
