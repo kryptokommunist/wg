@@ -17,15 +17,19 @@ $(function () {
 });
 
 // used for slide panel switches at /status/_panel.mobile.erb
-function flipped_checkbox(area_id)
+function flipped_checkbox(element)
 {
-    $.ajax({url: "areas/" + area_id + "/edit", type: "GET", data_type: "json", async: false});
-    setTimeout(500);
-    //flipbox<%= area.id %>.flipswitch({ disabled: true });
 
-    //setTimeout( function() {
-    //   flipbox<%= area.id %>.flipswitch({ disabled: false });
-    //}, 600 );
+	area_id = element.name;
+    $.ajax({url: "areas/" + area_id + "/edit", type: "GET", data_type: "json", async: false});
+
+    element = $('#'+ element.id)
+
+    element.flipswitch({ disabled: true });
+
+    setTimeout( function() {
+       element.flipswitch({ disabled: false });
+    }, 600 );
     
     //Timeout and disabling
 }

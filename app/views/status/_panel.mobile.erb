@@ -5,6 +5,8 @@
             <% @mates.each do |mate| %> 
                <li data-icon="home"><a href="#<%= mate.first_name.downcase %>"><%= mate.first_name %></a></li>
             <% end %>
+            <li data-role="list-divider">Funktionen</li>
+            <li data-icon="bars"><a href="#logs">Logs</a></li>
         </ul>
         <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
     </div>
@@ -20,7 +22,7 @@
                     <label for="flip-checkbox-3" style="display: inline;" id="flip-checkbox-label-<%= area.id %>"><%= area.name %></label>
                 </td>
                 <td>
-                    <input type="checkbox" data-role="flipswitch" name="<%= area.id %>" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b" area-id="<%= area.id %>" id="flip-checkbox-<%= area.id %>" onchange="flipped_checkbox(this.name)" <%=  raw %(checked="checked") unless area.clean? %>>
+                    <input type="checkbox" data-role="flipswitch" name="<%= area.id %>" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b" area-id="<%= area.id %>" id="flip-checkbox-<%= area.id %>" onchange="flipped_checkbox(this)" <%=  raw %(checked="checked") unless area.clean? %>>
                 </td>
             </form>
             </tr>
