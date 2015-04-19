@@ -8,10 +8,12 @@ class ApplicationController < ActionController::Base
 
   
 private
-def force_tablet_to_mobile
-	
-    session[:tablet_view] = false
+	def force_tablet_to_mobile
+		
+	    session[:tablet_view] = false
+	    session[:mobile_view] = true
 
-end
+
+	end
 
 end
