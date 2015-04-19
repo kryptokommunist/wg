@@ -21,13 +21,16 @@ class MatesController < ApplicationController
 		duty = mate.duties.find_by(accomplished_at: nil) # always retrieve the current open task
 		area_id = params[:area_id].to_i 
 
-		if (check = check_mate_duty(mate, duty, area_id)) == 1 # case that cleaned area wasn't assigned
+		if (check = check_mate_duty(mate, duty, area_id)) == :no_duty_match # case that cleaned area wasn't assigned
 			# create new duty for cleaned area for tracking purposes
 			x = mate.duties.create!(area_id: area_id,
 									due_to: nil,
 									accomplished_by_assigned: false, # mark that this wasn't an assigned task
 									accomplished_at: Time.zone.now,
 									faulty: false)
+			area = Area.find(area_id)
+			mate.update_attribute(:points, mate.points + area.points)
+			area.update_columns(last_cleaned: Time.zone.now, clean: true)
 		elsif check # case that the area was assigned in current duty
 			x = mate.duties.create(area_id: next_area(duty.area_id),
 									due_to: next_sunday(duty.due_to),
@@ -49,13 +52,14 @@ class MatesController < ApplicationController
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 				@error = nil # set error to nil since it may already contain sth.
-				@area = Area.find(area_id) # used in js response
-				@mate = mate.reload
 			else
 				@error = "Fehler beim Aufgabenerzeugen!"
 				flash[:danger] = @error
 			end
 		end
+
+		@area = Area.find(area_id) # used in js response
+		@mate = mate.reload
 
 		respond_to do |format|
 		    format.js
@@ -69,7 +73,7 @@ class MatesController < ApplicationController
 		def check_mate_duty(mate, duty, area_id)
 			if mate && duty # check if mate/duty were found in database
 				if (mate.id != duty.mate_id) || (duty.area.id != area_id) # check if duty belongs to mate and if duty belongs to area
-					@error = "Falsche Aufgabe!"
+					@error = "Diese Aufgabe war nicht geplant! Super, #{mate.first_name}! :)"
 					flash[:danger] = @error
 					return :no_duty_match
 		   		elsif duty.accomplished_at # if not nil, duty has already been accomplished
