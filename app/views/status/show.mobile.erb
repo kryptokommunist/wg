@@ -4,7 +4,7 @@
         <div class="text-center">
 	        <% @mates.each do |mate| %>
 		        <%= render mate %>
-		        <%= render mate.duties.last.area %>
+		        <%= render mate.current_duty.area %>
 		    <% end %>
         </div>
     </div>
