@@ -6,11 +6,12 @@ class ApplicationController < ActionController::Base
 
   has_mobile_fu
 
-def force_tablet_html
-	if is_tablet_device?
+  
+private
+def force_tablet_to_mobile
+	
     session[:tablet_view] = false
-    session[:mobile_view] = true
-	end
+
 end
 
 end
