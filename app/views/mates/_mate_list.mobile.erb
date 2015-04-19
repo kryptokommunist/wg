@@ -1,5 +1,5 @@
 <ul data-role="listview" data-inset="true">
-	<li><%= mate.duties.last.area.name %> bis <span class="due_to-<%= mate.id %>"><%= mate.duties.last.due_to.strftime("%a, %d.%m") + " (noch #{days_till_deadline mate})" %></span></li>
+	<li><span class="due-<%= mate.id %>"><%= duty_deadline mate %></span></li>
 	<li>Punkte: <span class="points-<%= mate.id %>"><%= mate.points %></span></li>
-	<li>Guthaben: <span class="balace-<%= mate.id %>"><%= mate.balance %></span> <i class="fa fa-btc"></i></li>
+	<li>Guthaben: <span class="balance-<%= mate.id %>"><%= mate.balance %></span> <i class="fa fa-btc"></i></li>
 </ul>

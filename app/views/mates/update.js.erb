@@ -11,6 +11,7 @@ label.fadeOut(300, function(){
 
 });
 // update mate attributes accordingly
-$(".due_to-<%= @mate.id %>").text("<%= deadline @mate %>");
+
 $(".points-<%= @mate.id %>").text("<%= @mate.points %>");
 $(".balance-<%= @mate.id %>").text("<%= @mate.balance %>");
+$(".due-<%= @mate.id %>").text("<%= duty_deadline @mate %>");
