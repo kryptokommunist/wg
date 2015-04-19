@@ -2,7 +2,7 @@ module MateHelper
 
 	def duty_deadline(mate)
 		duty = mate.current_duty
-		return duty.area.name + " bis " + duty.due_to.strftime("%a, %d.%m") + " (noch " + days_till_deadline(mate)
+		return duty.area.name + " bis " + duty.due_to.strftime("%a, %d.%m") + " (noch " + days_till_deadline(mate) +")"
 	end
 
 	def days_till_deadline (mate)
