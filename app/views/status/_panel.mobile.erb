@@ -22,7 +22,7 @@
                     <label for="flip-checkbox-3" style="display: inline;" id="flip-checkbox-label-<%= area.id %>"><%= area.name %></label>
                 </td>
                 <td>
-                    <input type="checkbox" data-role="flipswitch" name="<%= area.id %>" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b" area-id="<%= area.id %>" id="flip-checkbox-<%= area.id %>" onchange="flipped_checkbox(this)" <%=  raw %(checked="checked") unless area.clean? %>>
+                    <input type="checkbox" data-role="flipswitch" name="<%= area.id %>" data-on-text="dreckig" data-off-text="sauber" data-wrapper-class="custom-size-flipswitch" data-theme="b" area-id="<%= area.id %>" id="flip-checkbox-<%= area.id %>" class="panel-switch" onchange="flipped_checkbox(this)" <%=  raw %(checked="checked") unless area.clean? %>>
                 </td>
             </form>
             </tr>
