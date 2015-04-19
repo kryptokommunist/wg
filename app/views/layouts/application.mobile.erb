@@ -5,6 +5,7 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
   <title>Putzplan</title>
   <%= stylesheet_link_tag  'jquery-mobile', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'jquery-mobile', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -13,7 +14,5 @@
 	<%= yield %>
 
 </body>
-
-<%= javascript_include_tag 'jquery-mobile', 'data-turbolinks-track' => false %>
 
 </html>
