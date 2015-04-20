@@ -9,7 +9,7 @@ function cleaned_area(area_id, mate_id)
 {
     $.ajax({url: "mates/" + mate_id + "?area_id=" + area_id, type: "PATCH", data_type: "json", async: false})
 
-}
+};
 
 // used for slide panel close buttons at /status/_panel.mobile.erb
 $(function () {
@@ -33,4 +33,10 @@ function flipped_checkbox(element)
        element.flipswitch({ disabled: false });
     }, 600 );
     
-}
+};
+
+function loadLogs() {
+
+    $.ajax({url: "duties", type: "GET", data_type: "json", async: false});
+
+};
