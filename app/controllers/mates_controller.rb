@@ -134,7 +134,7 @@ class MatesController < ApplicationController
 			Mate.all.each do |other_mate|
 				if other_mate != mate
 					cit = maocit[Random.rand(last_i)]
-					time = Time.now.strftime('%H:%M')
+					time = Time.zone.now.strftime('%H:%M')
 					mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
 					planned = ""
 					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?

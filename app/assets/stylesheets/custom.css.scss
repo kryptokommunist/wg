@@ -32,20 +32,14 @@ html,body, #wrapper {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 20px;
-}
+
+
 .footer {
   position: absolute;
-  bottom: -0;
+  bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 20px;
+  /* height: 20px; doesnt work somehow? */
   background-color:rgba(256, 256, 256, 0.5);
 }
 
@@ -58,7 +52,4 @@ body {
   width: auto;
   padding: 0 15px;
   text-align: right;
-}
-.container .text-muted {
-  margin: 20px 0;
 }
