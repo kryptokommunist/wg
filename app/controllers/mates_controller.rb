@@ -18,19 +18,22 @@ class MatesController < ApplicationController
 
 	def update
 		mate = Mate.find_by(id: params[:id])
-		duty = mate.duties.find_by(accomplished_at: nil) # always retrieve the current open task
+		duty = mate.current_duty # always retrieve the current open task
 		area_id = params[:area_id].to_i 
 
 		if (check = check_mate_duty(mate, duty, area_id)) == :no_duty_match # case that cleaned area wasn't assigned
 			# create new duty for cleaned area for tracking purposes
-			x = mate.duties.create!(area_id: area_id,
+			new_duty = mate.duties.create!(area_id: area_id,
 									due_to: nil,
 									accomplished_by_assigned: false, # mark that this wasn't an assigned task
 									accomplished_at: Time.zone.now,
 									faulty: false)
-			area = Area.find(area_id)
-			mate.update_attribute(:points, mate.points + area.points)
-			area.update_columns(last_cleaned: Time.zone.now, clean: true)
+
+			mate.update_attribute(:points, mate.points + new_duty.area.points)
+			new_duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
+
+			notify(new_duty, mate)
+
 		elsif check # case that the area was assigned in current duty
 			x = mate.duties.create(area_id: next_area(duty.area_id),
 									due_to: next_sunday(duty.due_to),
@@ -46,9 +49,10 @@ class MatesController < ApplicationController
 				mate.reload # for access to new task in sms
 
 				edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
-				message = """Super #{mate.first_name}, neuer Punktestand: #{mate.points}. \n Deine nächste Aufgabe: #{mate.duties.last.area.name}. \n Deadline: #{mate.duties.last.due_to}. \n Link: #{edit_url}"""
-	
+
+				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
 				send_message(mate.mobile_number, message)
+				notify(duty, mate)
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 				@error = nil # set error to nil since it may already contain sth.
@@ -105,7 +109,7 @@ class MatesController < ApplicationController
         end
 
         # sends message via Twilio
-        def send_message(number,message)
+        def send_message(number, message)
 			account_sid = 'AC2c8fd13944d9190874525dd9a0c5b339' 
 			auth_token = '5a9d4063607d343906330171968f7371' 
 
@@ -119,6 +123,18 @@ class MatesController < ApplicationController
 
 			rescue Exception => ex
 	  			@error = ex.message + "\n\n" + ex.backtrace.join("\n")
+			end
+		end
+
+		# notifies all mates exept the given, that a task was completed
+		def notify(duty, mate)
+			Mate.all.each do |other_mate|
+				if other_mate != mate
+					planned = ""
+					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
+					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}"""
+					send_message(other_mate.mobile_number, message)
+				end
 			end
 		end
 
