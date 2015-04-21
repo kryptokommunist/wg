@@ -128,11 +128,17 @@ class MatesController < ApplicationController
 
 		# notifies all mates exept the given, that a task was completed
 		def notify(duty, mate)
+			maocit = File.read('data/maobibel.txt').split('+')
+			last_i = maocit.length - 1
+
 			Mate.all.each do |other_mate|
 				if other_mate != mate
+					cit = maocit[Random.rand(last_i)]
+					time = Time.now.strftime('%H:%M')
+					mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
 					planned = ""
 					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
-					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}"""
+					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
 					send_message(other_mate.mobile_number, message)
 				end
 			end

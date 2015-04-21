@@ -8,36 +8,36 @@
 
 Area.create!(name: "Küche",
 		     clean: false,
-		     points: 10,
+		     points: 1200,
 		     last_cleaned: 3.days.ago
 		     )
 Area.create!(name: "Bad",
 		     clean: false,
-		     points: 15,
+		     points: 1000,
 		     last_cleaned: 4.days.ago
 		     )
 Area.create!(name: "Wz./Flur",
 		     clean: true,
-		     points: 8,
+		     points: 400,
 		     last_cleaned: 1.days.ago
 		     )
 
 Area.create!(name: "Staubsauger",
 		     clean: true,
-		     points: 8,
+		     points: 400,
 		     last_cleaned: 1.days.ago
 		     )
 
 Area.create!(name: "Kühlschrank",
 		     clean: true,
-		     points: 17,
+		     points: 800,
 		     last_cleaned: 1.days.ago
 		     )
 
 
 Area.create!(name: "Müll",
 		     clean: true,
-		     points: 4,
+		     points: 100,
 		     last_cleaned: 1.days.ago
 		     )
 
