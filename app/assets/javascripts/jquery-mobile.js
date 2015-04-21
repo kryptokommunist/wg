@@ -43,15 +43,15 @@ function loadLogs() {
 
 function openDeletePopUp(duty_id) {
 
-    pop = $("#popupDialog");
-    pop.attr("name", duty_id);
-    pop.popup("open");
+    $("#delDutyLink").attr("name", duty_id);
+    $("#popupDialog").popup("open");
 
 };
 
-function deleteDuty() {
+function deleteDuty(duty_id) {
 
-     $.ajax({url: "duties/" + $("#popupDialog").prop("name"), type: "DELETE", data_type: "json", async: false});
+     $.ajax({url: "duties/" + duty_id, type: "DELETE", data_type: "json", async: false});
      $("#popupDialog").popup("close");
+     loadLogs();
 
 };
