@@ -42,7 +42,7 @@ body {
 }
 .footer {
   position: absolute;
-  bottom: 0;
+  bottom: -0;
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 20px;
@@ -60,5 +60,5 @@ body {
   text-align: right;
 }
 .container .text-muted {
-  margin: 0px 0;
+  margin: 20px 0;
 }

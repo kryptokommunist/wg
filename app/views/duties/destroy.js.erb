@@ -1,0 +1,5 @@
+// show dialog located in page div in /views/status/show.mobile.erb
+<% if @error %>
+$("#dialog-content").text("<%= @error %>");
+$.mobile.changePage( "#dialog", { role: "dialog", transition: "flip"} );
+<% end %>

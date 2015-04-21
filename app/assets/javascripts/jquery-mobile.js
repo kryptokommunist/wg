@@ -40,3 +40,18 @@ function loadLogs() {
     $.ajax({url: "duties", type: "GET", data_type: "json", async: false});
 
 };
+
+function openDeletePopUp(duty_id) {
+
+    pop = $("#popupDialog");
+    pop.attr("name", duty_id);
+    pop.popup("open");
+
+};
+
+function deleteDuty() {
+
+     $.ajax({url: "duties/" + $("#popupDialog").prop("name"), type: "DELETE", data_type: "json", async: false});
+     $("#popupDialog").popup("close");
+
+};
