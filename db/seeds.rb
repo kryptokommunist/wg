@@ -51,14 +51,14 @@ marcus = Mate.create!(first_name: "Marcus",
 
 marius = Mate.create!(first_name: "Marius",
 			 last_name: "Bothe",
-			 mobile_number: "+4917644494194",
+			 mobile_number: "+4917644494194 1111",
 			 email: "?",
 			 points: 0,
 			 balance: 0)
 
 jakob = Mate.create!(first_name: "Jakob",
 			 last_name: "Wunderwald",
-			 mobile_number: "+4915735808519",
+			 mobile_number: "+4915735808519 11111",
 			 email: "?",
 			 points: 0,
 			 balance: 0)
