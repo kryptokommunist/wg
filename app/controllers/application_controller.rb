@@ -22,7 +22,6 @@ end
 
 # sends message via Twilio
 def send_message(number, message)
-  Thread.new do
 
     account_sid = 'AC2c8fd13944d9190874525dd9a0c5b339' 
     auth_token = '5a9d4063607d343906330171968f7371' 
