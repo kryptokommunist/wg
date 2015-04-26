@@ -108,24 +108,6 @@ class MatesController < ApplicationController
             return right_now + (7 - right_now.wday).days + (22 - right_now.hour).hours + (0 - right_now.min).minutes + (0 - right_now.sec).second
         end
 
-        # sends message via Twilio
-        def send_message(number, message)
-			account_sid = 'AC2c8fd13944d9190874525dd9a0c5b339' 
-			auth_token = '5a9d4063607d343906330171968f7371' 
-
-			begin
-				# set up a client to talk to the Twilio REST API
-				client = Twilio::REST::Client.new account_sid, auth_token 
-				 
-				client.account.messages.create({:from => '+4915735981100', 
-												:to => number,
-												:body => message,})
-
-			rescue Exception => ex
-	  			@error = ex.message + "\n\n" + ex.backtrace.join("\n")
-			end
-		end
-
 		# notifies all mates exept the given, that a task was completed
 		def notify(duty, mate)
 			maocit = File.read('data/maobibel.txt').split('+')
