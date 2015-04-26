@@ -8,12 +8,15 @@ class ApplicationController < ActionController::Base
   has_mobile_fu
 
 def remind_of_duties(mates)
+    Thread.new do
   mates.each do |mate|
     if mate.current_duty.due_to <= Time.zone.now + 5.hours && mate.balance != 1  # if due_to is 24:00, get's send at 21:00
       message = "Hi #{mate.first_name},\ndeine noch offene Aufgabe: #{mate.current_duty.area.name}\nBitte erledige sie, bzw. trage die Erledigung ein!\nLink: #{root_url + "##{mate.first_name.downcase}"}\nDanke!\n\nSauberkeit: Wer reinigt, entfernt nichts, sondern verteilt nur anders."
       send_message(mate.mobile_number, message)
-      mate.update_attribute(:balance, 1)
+      mate.update_attribute(:balance, 1) # workaround for marking that user was reminded
     end
+  end
+      ActiveRecord::Base.connection.close
   end
 end
 
@@ -35,9 +38,6 @@ def send_message(number, message)
     rescue Exception => ex
       @error = ex.message + "\n\n" + ex.backtrace.join("\n")
     end
-
-    ActiveRecord::Base.connection.close
-  end
 end
 
 private
