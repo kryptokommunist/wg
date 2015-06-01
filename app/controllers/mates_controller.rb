@@ -32,7 +32,8 @@ class MatesController < ApplicationController
 			mate.update_attribute(:points, mate.points + new_duty.area.points)
 			new_duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
-			notify(new_duty, mate)
+			# ----- currently not working -----
+			#notify(new_duty, mate) #currently not working
 
 		elsif check # case that the area was assigned in current duty
 			x = mate.duties.create(area_id: next_area(duty.area_id),
@@ -46,13 +47,16 @@ class MatesController < ApplicationController
 				mate.update_attribute(:points, mate.points + duty.area.points)
 				duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
-				mate.reload # for access to new task in sms
 
-				edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
+				# ----- currently not working -----
+				#mate.reload # for access to new task in sms
 
-				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
-				send_message(mate.mobile_number, message)
-				notify(duty, mate)
+				#edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
+
+				#message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
+				#send_message(mate.mobile_number, message)
+				#notify(duty, mate)
+				# ----- currently not working -----
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 				@error = nil # set error to nil since it may already contain sth.
