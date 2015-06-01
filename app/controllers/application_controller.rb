@@ -15,7 +15,7 @@ def remind_of_duties(mates)
       send_message(mate.mobile_number, message)
       mate.update_attribute(:balance, 2) # workaround for marking that user was reminded
     end
-  end
+end
       
 end
 
