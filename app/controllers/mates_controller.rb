@@ -5,9 +5,9 @@ class MatesController < ApplicationController
 		@mate = Mate.find_by(id: params[:id])
 
 		if @mate
-			@mate.current_duty.update_columns(area_id: next_area(@mate.current_duty.id),
-											 due_to: next_sunday(Time.zone.now)
-											)
+			@mate.current_duty.update_columns(area_id: next_area(@mate.current_duty.area.id),
+											  due_to: next_sunday(@mate.current_duty.due_to_date)
+											  )
 			@mate.reload # reload for use in view
 		else
 			@error = "Fehler beim Aufgabenwechsel!"
