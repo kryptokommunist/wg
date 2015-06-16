@@ -1,0 +1,9 @@
+// show dialog located in page div in /views/status/show.mobile.erb
+// show dialog located in page div in /views/status/show.mobile.erb
+$("#dialog-content").text("<%= @error ? @error : "Datenbank aktualisiert! Mensch #{@mate.first_name}, neue Aufgabe, neues Glück :)" %>");
+$.mobile.changePage( "#dialog", { role: "dialog", transition: "flip"} );
+
+// update mate attributes accordingly
+<% if @mate %>
+$(".due-<%= @mate.id %>").text("<%= duty_deadline @mate %>");
+<% end %>

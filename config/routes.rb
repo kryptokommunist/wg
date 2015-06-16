@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :areas, only: [:edit]
   resources :duties, only: [:index,:destroy]
 
+  patch 'change_assigned_area/:id' => 'mates#change_assigned_area'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

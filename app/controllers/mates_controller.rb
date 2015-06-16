@@ -1,6 +1,20 @@
 
 class MatesController < ApplicationController
 
+	def change_assigned_area
+		@mate = Mate.find_by(id: params[:id])
+
+		if @mate
+			@mate.current_duty.update_columns(area_id: next_area(@mate.current_duty.id),
+											 due_to: next_sunday(Time.zone.now)
+											)
+			@mate.reload # reload for use in view
+		else
+			@error = "Fehler beim Aufgabenwechsel!"
+			flash[:danger] = @error
+		end
+	end
+
 	def show
 		if @mate = Mate.find_by(id: params[:id])
 			@areas = Area.all
@@ -24,7 +38,7 @@ class MatesController < ApplicationController
 		if (check = check_mate_duty(mate, duty, area_id)) == :no_duty_match # case that cleaned area wasn't assigned
 			# create new duty for cleaned area for tracking purposes
 			new_duty = mate.duties.create!(area_id: area_id,
-									due_to: nil,
+									due_to: nil, 					 # mark that this wasn't an assigned task
 									accomplished_by_assigned: false, # mark that this wasn't an assigned task
 									accomplished_at: Time.zone.now,
 									faulty: false)
@@ -72,6 +86,20 @@ class MatesController < ApplicationController
 		respond_to do |format|
 		    format.js
 		end
+	end
+
+	def next
+
+		mate = Mate.find_by(id: params[:id])
+
+		if(mate) then
+
+		else
+			@error = "Fehler, falscher Bewohner!"
+			flash[:danger] = @error
+		end
+
+
 	end
 
 	private

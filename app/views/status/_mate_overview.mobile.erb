@@ -6,7 +6,7 @@
 <h2 style="margin-top: 5pt; margin-bottom: 20pt"><%= mate.first_name %></h2>
 
 	<div data-role="collapsible" data-theme="b" data-content-theme="b">
-	    <h2>Wähle erledigte Aufgabe...</h2>
+	    <h2>Was gibt's neues?</h2>
 	    <ul data-role="listview">
 	        <% @areas.each do |area| %>
 				<li>
@@ -22,6 +22,7 @@
 				</li>
 	        <% end %>
 	    </ul>
+		<button class="ui-btn ui-icon-delete ui-btn-icon-left ui-shadow ui-corner-all" onClick="change_assigned_area(<%= mate.id %>)">Aktuelle Aufgabe ändern</button>
 	</div>
 
 <%= render 'mates/mate_list', mate: mate %>

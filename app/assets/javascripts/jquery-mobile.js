@@ -11,6 +11,13 @@ function cleaned_area(area_id, mate_id)
 
 };
 
+// used for mate who didn't clean and wants a new area assigned
+function change_assigned_area(mate_id)
+{
+    $.ajax({url: "change_assigned_area/" + mate_id, type: "PATCH", data_type: "json", async: false})
+
+};
+
 // used for slide panel close buttons at /status/_panel.mobile.erb
 $(function () {
     $("[data-role=panel]").panel().enhanceWithin();
