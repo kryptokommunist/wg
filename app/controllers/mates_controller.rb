@@ -6,7 +6,7 @@ class MatesController < ApplicationController
 
 		if @mate
 			@mate.current_duty.update_columns(area_id: next_area(@mate.current_duty.area.id),
-											  due_to: next_sunday(@mate.current_duty.due_to_date)
+											  due_to: next_sunday(@mate.current_duty.due_to)
 											  )
 			@mate.reload # reload for use in view
 		else
