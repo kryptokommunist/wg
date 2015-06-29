@@ -31,6 +31,10 @@ gem 'mobile-fu'
 
 gem "responders"
 
+gem "httparty"
+
+gem 'newrelic_rpm' # for monitoring and keeping app alive
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -61,4 +65,3 @@ group :production do
   gem 'rails_12factor'#, '0.0.2'
   gem 'puma'
 end
-

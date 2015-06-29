@@ -19,7 +19,7 @@ class MatesController < ApplicationController
 		if @mate = Mate.find_by(id: params[:id])
 			@areas = Area.all
 		else
-			flash[:danger] = "Mate id nicht gefunden" 
+			flash[:danger] = "Mate id nicht gefunden"
 			redirect_to root_path
 		end
 	end
@@ -33,9 +33,10 @@ class MatesController < ApplicationController
 	def update
 		mate = Mate.find_by(id: params[:id])
 		duty = mate.current_duty # always retrieve the current open task
-		area_id = params[:area_id].to_i 
+		area_id = params[:area_id].to_i
 
 		if (check = check_mate_duty(mate, duty, area_id)) == :no_duty_match # case that cleaned area wasn't assigned
+
 			# create new duty for cleaned area for tracking purposes
 			new_duty = mate.duties.create!(area_id: area_id,
 									due_to: nil, 					 # mark that this wasn't an assigned task
@@ -46,8 +47,7 @@ class MatesController < ApplicationController
 			mate.update_attribute(:points, mate.points + new_duty.area.points)
 			new_duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
-			# ----- currently not working -----
-			#notify(new_duty, mate) #currently not working
+			notify(new_duty, mate)
 
 		elsif check # case that the area was assigned in current duty
 			x = mate.duties.create(area_id: next_area(duty.area_id),
@@ -61,16 +61,11 @@ class MatesController < ApplicationController
 				mate.update_attribute(:points, mate.points + duty.area.points)
 				duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
+				mate.reload # for access to new task in sms
 
-				# ----- currently not working -----
-				#mate.reload # for access to new task in sms
-
-				#edit_url = edit_mate_url(mate, duty_id: mate.duties.last.id)
-
-				#message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
-				#send_message(mate.mobile_number, message)
-				#notify(duty, mate)
-				# ----- currently not working -----
+				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
+				send_message(mate.chat_id, message)
+				notify(duty, mate)
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
 				@error = nil # set error to nil since it may already contain sth.
@@ -125,6 +120,14 @@ class MatesController < ApplicationController
 			end
 		end
 
+		# sends the given message with the help of a trello chat bot to the given chat id.
+		def send_message(chat_id, message)
+
+			#let's party hard!
+			HTTParty.post('https://api.telegram.org/bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc/sendMessage', body: {chat_id: chat_id, text: message})
+
+		end
+
 		# returns next area_id out of 1..3
 		def next_area(current_id)
 			next_id = current_id + 1
@@ -132,7 +135,7 @@ class MatesController < ApplicationController
 			return 1
 		end
 
-		# returns date for sunday 24:00pm of current week or of next week if supplied with due_to_date before now. 
+		# returns date for sunday 24:00pm of current week or of next week if supplied with due_to_date before now.
 		# E.g. Function is called Monday at 00:00pm, then right_now needs to be incremented to next week (+7 days) since duties are assigned weekly
 		def next_sunday(due_to_date)
 			right_now = Time.zone.now
@@ -147,15 +150,16 @@ class MatesController < ApplicationController
 
 			Mate.all.each do |other_mate|
 				if other_mate != mate
+
 					cit = maocit[Random.rand(last_i)]
 					time = Time.zone.now.strftime('%H:%M')
 					mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
 					planned = ""
 					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
 					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
-					send_message(other_mate.mobile_number, message)
+					send_message(other_mate.chat_id, message)
 				end
 			end
 		end
 
-end
+ end

@@ -42,6 +42,12 @@
 		    </div>
 		</div>
     </div>
+   <script type="text/javascript"> // load logs whenever the logs page is shown
+	$(document).on("pageshow", '#logs', function( event ) {
+		openDeletePopUp('4');
+  	loadLogs();
+	});
+	</script>
 </div>
 
 <div data-role="page" id="dialog">

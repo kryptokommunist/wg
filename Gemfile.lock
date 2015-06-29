@@ -63,6 +63,9 @@ GEM
       railties (>= 3.2, < 5.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.3.0)
       activesupport (>= 3.0.0, < 5)
@@ -86,6 +89,8 @@ GEM
       rack-mobile-detect
       rails
     multi_json (1.11.1)
+    multi_xml (0.5.5)
+    newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     pg (0.18.2)
@@ -176,10 +181,12 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   font-awesome-rails
+  httparty
   jbuilder (~> 2.0)
   jquery-rails
   jquery_mobile_rails
   mobile-fu
+  newrelic_rpm
   pg
   puma
   rails (= 4.2.0)

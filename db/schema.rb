@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408183803) do
+ActiveRecord::Schema.define(version: 20150629130239) do
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20150408183803) do
     t.integer  "balance"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "chat_id"
   end
 
 end

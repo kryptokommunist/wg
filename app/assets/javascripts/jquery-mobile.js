@@ -42,6 +42,7 @@ function flipped_checkbox(element)
     
 };
 
+// get logs
 function loadLogs() {
 
     $.ajax({url: "duties", type: "GET", data_type: "json", async: false});
