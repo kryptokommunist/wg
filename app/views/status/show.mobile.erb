@@ -16,7 +16,7 @@
 	<div data-role="page" id="<%= mate.first_name.downcase %>" data-theme="a" data-url="<%= mate.first_name.downcase %>">
 		<%= render 'header' %>
 		<div data-role="content">
-			
+
 	        	<%= render 'mate_overview', mate: mate  %>
 
 		</div>
@@ -44,7 +44,6 @@
     </div>
    <script type="text/javascript"> // load logs whenever the logs page is shown
 	$(document).on("pageshow", '#logs', function( event ) {
-		openDeletePopUp('4');
   	loadLogs();
 	});
 	</script>
@@ -58,4 +57,3 @@
     <p id="dialog-content">I am a dialog</p>
   </div>
 </div>
-
