@@ -56,6 +56,7 @@ class MatesController < ApplicationController
 									accomplished_at: nil,
 									faulty: false)
 			if x # make sure new duty was created
+
 				duty.update_attribute(:accomplished_at, Time.zone.now)
 				duty.area.update_attribute(:clean, true)
 				mate.update_attribute(:points, mate.points + duty.area.points)
@@ -64,11 +65,14 @@ class MatesController < ApplicationController
 				mate.reload # for access to new task in sms
 
 				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
+
 				send_message(mate.chat_id, message)
 				notify(duty, mate)
 
+
+				@error = nil unless @error # set error to nil since it may already contain sth.
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
-				@error = nil # set error to nil since it may already contain sth.
+
 			else
 				@error = "Fehler beim Aufgabenerzeugen!"
 				flash[:danger] = @error
@@ -127,6 +131,8 @@ class MatesController < ApplicationController
 			if chat_id
 				#let's party hard!
 				HTTParty.post('https://api.telegram.org/bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc/sendMessage', body: {chat_id: chat_id, text: message})
+			else
+				@error = "Bitte verbinde deinen Trello-Account für Notifications!"
 			end
 
 		end
@@ -148,20 +154,25 @@ class MatesController < ApplicationController
 
 		# notifies all mates exept the given, that a task was completed
 		def notify(duty, mate)
-			maocit = File.read('data/maobibel.txt').split('+')
-			last_i = maocit.length - 1
 
-			Mate.all.each do |other_mate|
-				if other_mate != mate
+			Thread.new do
 
-					cit = maocit[Random.rand(last_i)]
-					time = Time.zone.now.strftime('%H:%M')
-					mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
-					planned = ""
-					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
-					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
-					send_message(other_mate.chat_id, message)
+				maocit = File.read('data/maobibel.txt').split('+')
+				last_i = maocit.length - 1
+
+				Mate.all.each do |other_mate|
+					if other_mate != mate
+
+						cit = maocit[Random.rand(last_i)]
+						time = Time.zone.now.strftime('%H:%M')
+						mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
+						planned = ""
+						planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
+						message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
+						send_message(other_mate.chat_id, message)
+					end
 				end
+
 			end
 		end
 
