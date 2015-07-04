@@ -63,8 +63,11 @@ class MatesController < ApplicationController
 
 				mate.reload # for access to new task in sms
 
-				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
-				send_message(mate.chat_id, message)
+				if mate.chat_id # catch case chat_id wasn't registered yet
+					message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
+					send_message(mate.chat_id, message)
+				end
+
 				notify(duty, mate)
 
 				flash[:success] = "Punkte gutgeschrieben - Neue Aufgabe zugeteilt"
@@ -157,7 +160,9 @@ class MatesController < ApplicationController
 					planned = ""
 					planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
 					message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
-					send_message(other_mate.chat_id, message)
+					if other_mate.chat_id # catch case chat_id wasn't registered yet
+						send_message(other_mate.chat_id, message)
+					end
 				end
 			end
 		end
