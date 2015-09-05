@@ -140,7 +140,7 @@ class MatesController < ApplicationController
 		# returns next area_id out of 1..3
 		def next_area(current_id)
 			next_id = current_id + 1
-			return next_id if (next_id <= 3)
+			return next_id if (next_id <= 4)
 			return 1
 		end
 
