@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   before_filter :force_tablet_to_mobile
 
@@ -16,7 +16,7 @@ def remind_of_duties(mates)
       mate.update_attribute(:balance, 2) # workaround for marking that user was reminded
     end
   end
-      
+
 end
 
 
