@@ -51,21 +51,21 @@ marcus = Mate.create!(first_name: "Marcus",
 nga = Mate.create!(first_name: "Nga",
 			 last_name: "Nguyen",
 			 mobile_number: "+49 176 57608441",
-			 email: "?",
+			 email: "n.thuy_nga@yahoo.de",
 			 points: 0,
 			 balance: 0)
 
 puneh = Mate.create!(first_name: "Puneh",
 			 last_name: "Nejati-Mehr",
 			 mobile_number: "+4915168410618",
-			 email: "?",
+			 email: "p.mehr@me.com",
 			 points: 0,
 			 balance: 0)
 
 jakob = Mate.create!(first_name: "Jakob",
 			 last_name: "Wunderwald",
 			 mobile_number: "+4915735808519 11111",
-			 email: "?",
+			 email: "Jakobwunderwald@yahoo.de",
 			 points: 0,
 			 balance: 0)
 
