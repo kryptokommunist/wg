@@ -3,7 +3,7 @@ class WebhooksController < ApplicationController
   def get_updates
 
     print "This is a test!"
-    print params[:message][:id]
+    print params[:message][:from][:id]
 
     render :nothing => true
 
