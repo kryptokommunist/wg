@@ -48,7 +48,7 @@ class MatesController < ApplicationController
 			new_duty.area.update_columns(last_cleaned: Time.zone.now, clean: true)
 
 			message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}. Weiter so :)"""
-			send_message(mate.chat_id, message)
+			send_message(mate.chat_id, message, last_name: mate.last_name)
 			notify(new_duty, mate)
 
 		elsif check # case that the area was assigned in current duty
@@ -135,7 +135,7 @@ class MatesController < ApplicationController
 				HTTParty.post('https://api.telegram.org/bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc/sendMessage', body: {chat_id: chat_id, text: message})
 			else
 				print("Error! No chat_id")
-				@error = 'Bitte verbinde deinen Telegram-Account für Notifications mit dem <a href="https://telegram.me/kryptobot">Telegram Bot</a>! <p>1. Adde den Bot!</p><p>2. Schicke dem Bot deinen Nachnamen #{last_name} als Nachricht!</p> '
+				@error = 'Bitte verbinde deinen Telegram-Account für Notifications mit dem <a href="https://telegram.me/kryptobot">Telegram Bot</a>! <p>1. Adde den Bot!</p><p>2. Schicke dem Bot deinen Nachnamen <b>' + last_name + '</b> als Nachricht!</p> '
 			end
 
 		end
