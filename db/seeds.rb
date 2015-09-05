@@ -22,6 +22,12 @@ Area.create!(name: "Wz./Flur",
 		     last_cleaned: 1.days.ago
 		     )
 
+Area.create!(name: "Müll",
+		     clean: true,
+		     points: 100,
+		     last_cleaned: 1.days.ago
+		     )
+
 Area.create!(name: "Staubsauger",
 		     clean: true,
 		     points: 400,
@@ -34,11 +40,6 @@ Area.create!(name: "Kühlschrank",
 		     last_cleaned: 1.days.ago
 		     )
 
-Area.create!(name: "Müll",
-		     clean: true,
-		     points: 100,
-		     last_cleaned: 1.days.ago
-		     )
 
 
 marcus = Mate.create!(first_name: "Marcus",
