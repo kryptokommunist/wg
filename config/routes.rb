@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :areas, only: [:edit]
   resources :duties, only: [:index,:destroy]
 
+  post 'bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc' => 'webhooks#get_updates'
+
   patch 'change_assigned_area/:id' => 'mates#change_assigned_area'
 
   # The priority is based upon order of creation: first created -> highest priority.
