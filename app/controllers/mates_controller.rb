@@ -135,7 +135,7 @@ class MatesController < ApplicationController
 				HTTParty.post('https://api.telegram.org/bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc/sendMessage', body: {chat_id: chat_id, text: message})
 			else
 				print("Error! No chat_id")
-				@error = 'Bitte verbinde deinen Telegram-Account für Notifications mit dem <a href="https://telegram.me/kryptobot">Telegram Bot</a>! Adde den Bot!'
+				@error = 'Bitte verbinde deinen Telegram-Account für Notifications mit dem <a href="https://telegram.me/kryptobot">Telegram Bot</a>! <p>1. Adde den Bot!</p><p>2. Schicke dem Bot deinen Nachnamen e.g. Nguyen als Nachricht!</p> '
 			end
 
 		end
