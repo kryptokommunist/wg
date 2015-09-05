@@ -10,4 +10,5 @@ class Mate < ActiveRecord::Base
 	def current_duty
 		self.duties.find_by(accomplished_at: nil)
 	end
+	
 end
