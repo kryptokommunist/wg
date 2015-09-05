@@ -34,7 +34,6 @@ Area.create!(name: "Kühlschrank",
 		     last_cleaned: 1.days.ago
 		     )
 
-
 Area.create!(name: "Müll",
 		     clean: true,
 		     points: 100,
@@ -49,9 +48,16 @@ marcus = Mate.create!(first_name: "Marcus",
 			 points: 0,
 			 balance: 0)
 
-marius = Mate.create!(first_name: "Marius",
-			 last_name: "Bothe",
-			 mobile_number: "+4917644494194 1111",
+nga = Mate.create!(first_name: "Nga",
+			 last_name: "Nguyen",
+			 mobile_number: "+49 176 57608441",
+			 email: "?",
+			 points: 0,
+			 balance: 0)
+
+puneh = Mate.create!(first_name: "Puneh",
+			 last_name: "Nejati-Mehr",
+			 mobile_number: "+4915168410618",
 			 email: "?",
 			 points: 0,
 			 balance: 0)
@@ -78,9 +84,14 @@ jakob.duties.create!(area_id: Area.find_by(name: "Bad").id,
 					 accomplished_by_assigned: true,
 					 faulty: false)
 
-marius.duties.create!(area_id: Area.find_by(name: "Wz./Flur").id,
+nga.duties.create!(area_id: Area.find_by(name: "Wz./Flur").id,
 					  due_to: sunday_at_22,
 					  accomplished_at: nil,
 					  accomplished_by_assigned: true,
 					  faulty: false)
 
+puneh.duties.create!(area_id: Area.find_by(name: "Kühlschrank").id,
+					  due_to: sunday_at_22,
+					  accomplished_at: nil,
+					  accomplished_by_assigned: true,
+					  faulty: false)
