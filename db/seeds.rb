@@ -46,6 +46,7 @@ marcus = Mate.create!(first_name: "Marcus",
 			 last_name: "Ding",
 			 mobile_number: "+4917695855565",
 			 email: "marcusding@me.com",
+			 chat_id: "27397086",
 			 points: 0,
 			 balance: 0)
 
