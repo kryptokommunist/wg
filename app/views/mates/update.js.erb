@@ -1,5 +1,5 @@
 // show dialog located in page div in /views/status/show.mobile.erb
-$("#dialog-content").text("<%= @error ? @error : "Datenbank aktualisiert!" %>");
+$("#dialog-content").html('<%= @error ? @error.html_safe : "Datenbank aktualisiert!" %>');
 $.mobile.changePage( "#dialog", { role: "dialog", transition: "flip"} );
 // update the labels accordingly
 label = $('.form-<%= @area.id %>');
