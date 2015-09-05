@@ -6,7 +6,7 @@ class WebhooksController < ApplicationController
     user = params[:message][:text] #get user
 
     if mate = Mate.find_by(last_name: user) then
-      mate.update_attribute(:chat_id)
+      mate.update_attribute(chat_id: chat_id)
     end
 
   end
