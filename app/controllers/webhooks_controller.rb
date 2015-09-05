@@ -4,6 +4,7 @@ class WebhooksController < ApplicationController
 
     render :layout => false
 
+    print "This is a test!"
     print params[:message]
 
   end
