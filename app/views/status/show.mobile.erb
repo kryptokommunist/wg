@@ -49,6 +49,39 @@
 	</script>
 </div>
 
+<div data-role="page" id="settings">
+    <%= render 'header' %>
+
+    <div data-role="tabs">
+      <div data-role="navbar">
+          <ul>
+            <li><a href="#one" data-theme="a" data-ajax="false">Bewohner</a></li>
+            <li><a href="#two" data-theme="a" data-ajax="false">Tasks</a></li>
+            <li><a href="#three" data-theme="a" data-ajax="false">Sonstiges</a></li>
+          </ul>
+      </div>
+      <div id="one" class="ui-content">
+            <ul data-role="listview">
+                <% Mate.all.each do |mate| %>
+                <li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r"><%= mate.first_name + " " + mate.last_name %></a></li>
+                <% end %>
+                <li data-icon="gear"><a href="#">Neuen Bewohner hinzufügen</a></li>
+            </ul>
+      </div>
+      <div id="two" class="ui-content">
+          <ul data-role="listview">
+              <% Area.all.each do |task| %>
+              <li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r"><%= task.name %></a></li>
+              <% end %>
+              <li data-icon="gear"><a href="#">Neuen Task einlegen</a></li>
+          </ul>
+      </div>
+      <div id="three" class="ui-content">
+        <h1>Third tab contents</h1>
+      </div>
+    </div>
+</div>
+
 <div data-role="page" id="dialog">
   <div data-role="header">
     <h2>Dialog</h2>

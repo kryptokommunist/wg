@@ -2,10 +2,11 @@
     <div data-role="content">
         <ul data-role="listview" data-inset="true">
             <li data-role="list-divider">Bewohner</li>
-            <% @mates.each do |mate| %> 
+            <% @mates.each do |mate| %>
                <li data-icon="home"><a href="#<%= mate.first_name.downcase %>"><%= mate.first_name %></a></li>
             <% end %>
             <li data-role="list-divider">Funktionen</li>
+            <li data-icon="gear"><a href="#settings">Einstellungen</a></li>
             <li data-icon="bars"><a href="#logs">Logs</a></li>
         </ul>
         <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-inline="true" class="ui-btn ui-icon-delete">Schließen</a>
@@ -17,7 +18,7 @@
         <table>
         <% @areas.each do |area| %>
             <tr>
-            <form>                    
+            <form>
                 <td> 
                     <label for="flip-checkbox-3" style="display: inline;" id="flip-checkbox-label-<%= area.id %>"><%= area.name %></label>
                 </td>
