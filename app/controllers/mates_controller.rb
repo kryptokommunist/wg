@@ -5,7 +5,7 @@ class MatesController < ApplicationController
 		@mate = Mate.find_by(id: params[:id])
 
 		if @mate
-			@mate.current_duty.update_columns(area_id: next_area(@mate.current_duty.area.id),
+			@mate.current_duty.update_columns(area_id: @mate.next_area_id),
 											  due_to: next_sunday(@mate.current_duty.due_to - 7.days)
 											  )
 			@mate.reload # reload for use in view
@@ -52,7 +52,7 @@ class MatesController < ApplicationController
 			notify(new_duty, mate)
 
 		elsif check # case that the area was assigned in current duty
-			x = mate.duties.create(area_id: next_area(duty.area_id),
+			x = mate.duties.create(area_id: mate.next_area_id,
 									due_to: next_sunday(duty.due_to),
 									accomplished_by_assigned: true,
 									accomplished_at: nil,
@@ -124,13 +124,6 @@ class MatesController < ApplicationController
 				flash[:danger] = @error
 				return false
 			end
-		end
-
-		# returns next area_id out of 1..3
-		def next_area(current_id)
-			next_id = current_id + 1
-			return next_id if (next_id <= 4)
-			return 1
 		end
 
 		# returns date for sunday 24:00pm of current week or of next week if supplied with due_to_date before now.
