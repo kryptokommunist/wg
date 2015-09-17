@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :duties, only: [:index,:destroy]
 
   post 'bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc' => 'webhooks#get_updates'
+  get 'bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc' => 'webhooks#remind_of_duties'
 
   patch 'change_assigned_area/:id' => 'mates#change_assigned_area'
 
