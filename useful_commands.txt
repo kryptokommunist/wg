@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X POST -d '{"message":{"from":{"id":27397086}, "text":"Ding"}}' localhost:3000/bot114815095:AAH0C9oMZKAEG4WMe4eZ9AmYHUZTrnJ1xCc
