@@ -23,10 +23,12 @@ class WebhooksController < ApplicationController
 
   				mate.reload # for access to new task in sms
 
-  				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}\n\u1F64D"}"""
+  				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}\n"}"""
 
-  				send_message(mate.chat_id, message)
+          send_message(mate.chat_id, "\u{1F64D}")
   				mate.notify(duty)
+          send_message(mate.chat_id, message)
+
         else
           send_message(mate.chat_id, "Mir ist ein Fehler passiert... Mir ist es soooo peinlich :(\n Sorry")
         end
@@ -49,7 +51,10 @@ class WebhooksController < ApplicationController
       send_message(chat_id, "#{text} ???????????????\n Häää? >_>")
       send_message(chat_id, ">_<")
       send_message(chat_id, ":(")
-      send_message(chat_id, "Was willst du mir sagen? Ich verstehe nicht...\nSprich doch mal mit meinem Papa Hans :)\n\nHerzlichst\nDein Putzbot")
+      send_message(chat_id, "Was willst du mir sagen? \u{1F633} Ich verstehe nicht...\nSprich doch mal mit meinem Papa Hans \u{263A}\u{1F633} \n\nHerzlichst\nDein Putzbot")
+      (3 + Random.rand(10)).times do
+        send_message(chat_id, (128513 + Random.rand(67)).chr('UTF-8'))
+      end
     end
 
   end
