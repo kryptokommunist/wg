@@ -1,6 +1,6 @@
 <ul data-role="listview" data-inset="true">
 	<% if mate.chat_id.nil? then %>
-	<%= raw """#{'<li style="white-space: normal;"><p>Bitte verbinde deinen Telegram-Account für Notifications mit dem <a href="https://telegram.me/kryptobot">Telegram Bot</a>!</p><p>1. Adde den Bot!</p><p>2. Schicke dem Bot deinen Nachnamen <b>' + mate.last_name + '</b> als Nachricht!</p></li>'}""" %>
+	<%= raw """#{'<li style="white-space: normal;"><p>Bitte verbinde deinen Telegram-Account für Notifications:</p><p><a href="https://telegram.me/kryptobot">Telegram Bot</a>!</p><p>1. Adde den Bot!</p><p>2. Schicke deinen Nachnamen <b>' + mate.last_name + '</b> als Nachricht!</p></li>'}""" %>
 	<% end %>
 	<li><span class="due-<%= mate.id %>"><%= duty_deadline mate %></span></li>
 	<li>Punkte: <span class="points-<%= mate.id %>"><%= mate.points %></span></li>
