@@ -5,19 +5,8 @@ class WebhooksController < ApplicationController
     chat_id = params[:message][:from][:id] #get chat id from last received message
     text = params[:message][:text] #get text
 
-      if mate = Mate.find_by(last_name: text) and mate.chat_id.nil? then # check if supplied user name is valid. Rights management to be added later!
-        begin
-          mate.update_attributes!(chat_id: chat_id)
-          mate.reload
-          send_message(mate.chat_id, "Hey #{mate.first_name},\nich habe deinen Telegram-Account jetzt registriert \\o/. Leider bin ich sehr dumm. Ich kann leider noch nicht antworten. Mein Gehirn ist zu klein :(\n\nHDGL\n Dein Putzbot")
-        rescue ActiveRecord::RecordInvalid => e
-          send_message(chat_id, "Leider gab es Fehler o_O :\n\n#{e.to_s}")
-        end
+    if text == "habs :)"
 
-    elsif mate # case there is already an chat_id assigned
-      send_message(mate.chat_id, "Hi #{mate.first_name},\njemand hat versucht deine Telegram-Verbindung zu überschreiben. Seine Chat-ID lautet: #{chat_id}")
-      send_message(chat_id, "Sorry, aber dieser Nutzer hat bereits einen assoziierten Telegram-Account!\n\nHerzlichst\nDein Putzbot")
-    elsif text == "habs :)"
       if mate = Mate.find_by(chat_id: chat_id) then
         duty = mate.current_duty
         x = mate.duties.create(area_id: mate.next_area_id,
@@ -44,6 +33,18 @@ class WebhooksController < ApplicationController
       else
         send_message(chat_id, "Du bist nichts als Nutzer eingetragen o_O")
       end
+    elsif mate = Mate.find_by(last_name: text) and mate.chat_id.nil? then # check if supplied user name is valid. Rights management to be added later!
+         begin
+           mate.update_attributes!(chat_id: chat_id)
+           mate.reload
+           send_message(mate.chat_id, "Hey #{mate.first_name},\nich habe deinen Telegram-Account jetzt registriert \\o/. Leider bin ich sehr dumm. Ich kann leider noch nicht antworten. Mein Gehirn ist zu klein :(\n\nHDGL\n Dein Putzbot")
+         rescue ActiveRecord::RecordInvalid => e
+           send_message(chat_id, "Leider gab es Fehler o_O :\n\n#{e.to_s}")
+         end
+
+     elsif mate # case there is already an chat_id assigned
+       send_message(mate.chat_id, "Hi #{mate.first_name},\njemand hat versucht deine Telegram-Verbindung zu überschreiben. Seine Chat-ID lautet: #{chat_id}")
+       send_message(chat_id, "Sorry, aber dieser Nutzer hat bereits einen assoziierten Telegram-Account!\n\nHerzlichst\nDein Putzbot")
     else
       send_message(chat_id, "#{text} ???????????????\n Häää? >_>")
       send_message(chat_id, ">_<")
