@@ -13,7 +13,7 @@ class Mate < ActiveRecord::Base
 
   # returns next area_id out of 1..3
 	def next_area_id
-		next_id = self.current_duty.id + 1
+		next_id = self.current_duty.area.id + 1
 		return next_id if (next_id <= 4)
 		return 1
 	end
