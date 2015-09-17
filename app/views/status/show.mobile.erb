@@ -52,12 +52,13 @@
 <div data-role="page" id="settings">
     <%= render 'header' %>
 
+  <div data-role="content">
     <div data-role="tabs">
       <div data-role="navbar">
           <ul>
-            <li><a href="#one" data-theme="a" data-ajax="false">Bewohner</a></li>
-            <li><a href="#two" data-theme="a" data-ajax="false">Tasks</a></li>
-            <li><a href="#three" data-theme="a" data-ajax="false">Sonstiges</a></li>
+            <li><a href="#one" data-ajax="false">Bewohner</a></li>
+            <li><a href="#two" data-ajax="false">Tasks</a></li>
+            <li><a href="#three" data-ajax="false">Sonstiges</a></li>
           </ul>
       </div>
       <div id="one" class="ui-content">
@@ -80,6 +81,7 @@
         <h1>Third tab contents</h1>
       </div>
     </div>
+  </div>
 </div>
 
 <div data-role="page" id="dialog">
