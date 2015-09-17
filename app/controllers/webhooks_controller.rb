@@ -49,8 +49,7 @@ class WebhooksController < ApplicationController
        send_message(chat_id, "Sorry, aber dieser Nutzer hat bereits einen assoziierten Telegram-Account!\n\nHerzlichst\nDein Putzbot")
     else
       send_message(chat_id, "#{text} ???????????????\n Häää? >_>")
-      send_message(chat_id, ">_<")
-      send_message(chat_id, ":(")
+      send_message(chat_id, (128513 + Random.rand(67)).chr('UTF-8'))
       send_message(chat_id, "Was willst du mir sagen? \u{1F633} Ich verstehe nicht...\nSprich doch mal mit meinem Papa Hans \u{263A}\u{1F633} \n\nHerzlichst\nDein Putzbot")
       (3 + Random.rand(10)).times do
         send_message(chat_id, (128513 + Random.rand(67)).chr('UTF-8'))
