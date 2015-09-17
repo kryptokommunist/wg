@@ -16,6 +16,9 @@ class WebhooksController < ApplicationController
       send_message(mate.chat_id, "Hi #{mate.first_name},\njemand hat versucht deine Telegram-Verbindung zu überschreiben. Seine Chat-ID lautet: #{chat_id}")
       send_message(chat_id, "Sorry, aber dieser Nutzer hat bereits einen assoziierten Telegram-Account!\n\nHerzlichst\nDein Putzbot")
     else
+      send_message(chat_id, "#{user}???????????????\n Häää? >_>")
+      send_message(chat_id, ">_<")
+      send_message(chat_id, ":(")
       send_message(chat_id, "Was willst du mir sagen? Ich verstehe nicht...\nSprich doch mal mit meinem Papa Hans :)\n\nHerzlichst\nDein Putzbot")
     end
 
