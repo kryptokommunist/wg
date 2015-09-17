@@ -19,6 +19,7 @@ class WebhooksController < ApplicationController
       send_message(chat_id, "Sorry, aber dieser Nutzer hat bereits einen assoziierten Telegram-Account!\n\nHerzlichst\nDein Putzbot")
     elsif text == "habs :)"
       if mate = Mate.find_by(chat_id: chat_id) then
+        duty = mate.current_duty
         x = mate.duties.create(area_id: mate.next_area_id,
   									due_to: next_sunday(duty.due_to),
   									accomplished_by_assigned: true,
@@ -36,7 +37,7 @@ class WebhooksController < ApplicationController
   				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
 
   				send_message(mate.chat_id, message)
-  				notify(duty, mate)
+  				mate.notify(duty)
         else
           send_message(mate.chat_id, "Mir ist ein Fehler passiert... Mir ist es soooo peinlich :(\n Sorry")
         end
@@ -61,6 +62,16 @@ class WebhooksController < ApplicationController
       end
     end
 
+  end
+
+  private
+
+  # returns date for sunday 24:00pm of current week or of next week if supplied with due_to_date before now.
+  # E.g. Function is called Monday at 00:00pm, then right_now needs to be incremented to next week (+7 days) since duties are assigned weekly
+  def next_sunday(due_to_date)
+    right_now = Time.zone.now
+    right_now += 6.days if right_now <= due_to_date # approximation should be fine, ignore edge cases for now
+    return right_now + (7 - right_now.wday).days + (22 - right_now.hour).hours + (0 - right_now.min).minutes + (0 - right_now.sec).second
   end
 
 end

@@ -49,7 +49,7 @@ class MatesController < ApplicationController
 
 			message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}. Weiter so :)"""
 			send_message(mate.chat_id, message, last_name: mate.last_name)
-			notify(new_duty, mate)
+			mate.notify(new_duty)
 
 		elsif check # case that the area was assigned in current duty
 			x = mate.duties.create(area_id: mate.next_area_id,
@@ -69,7 +69,7 @@ class MatesController < ApplicationController
 				message = """\nSuper #{mate.first_name},\nneuer Punktestand: #{mate.points}.\nDeine nächste Aufgabe: #{mate.current_duty.area.name}. \nDeadline: #{mate.duties.last.due_to.strftime("%a, %d.%m")}.\nLink: #{root_url + "##{mate.first_name.downcase}"}"""
 
 				send_message(mate.chat_id, message, last_name: mate.last_name)
-				notify(duty, mate)
+				mate.notify(duty)
 
 
 				@error = nil unless @error # set error to nil since it may already contain sth.
@@ -131,31 +131,7 @@ class MatesController < ApplicationController
 		def next_sunday(due_to_date)
 			right_now = Time.zone.now
 			right_now += 6.days if right_now <= due_to_date # approximation should be fine, ignore edge cases for now
-            return right_now + (7 - right_now.wday).days + (22 - right_now.hour).hours + (0 - right_now.min).minutes + (0 - right_now.sec).second
-        end
-
-		# notifies all mates exept the given, that a task was completed
-		def notify(duty, mate)
-
-			Thread.new do
-
-				maocit = File.read('data/maobibel.txt').split('+')
-				last_i = maocit.length - 1
-
-				Mate.all.each do |other_mate|
-					if other_mate != mate
-
-						cit = maocit[Random.rand(last_i)]
-						time = Time.zone.now.strftime('%H:%M')
-						mao = 'Es ist ' + time + ' Uhr.' + "\nDas Mao-Zitat der Stunde enstammt der Quelle: " + cit
-						planned = ""
-						planned = "Diese Aufgabe war übrigens nicht geplant!"  if duty.due_to.nil?
-						message = """\nHi #{other_mate.first_name},\n#{mate.first_name} hat grade folgendes gemacht: #{duty.area.name}.\n#{planned}\nEr hat nun #{mate.points} Punkte.\nDu hast #{other_mate.points} Punkte!\nLink: #{root_url + "##{other_mate.first_name.downcase}"}\n\n#{mao}"""
-						send_message(other_mate.chat_id, message)
-					end
-				end
-
-			end
-		end
+      return right_now + (7 - right_now.wday).days + (22 - right_now.hour).hours + (0 - right_now.min).minutes + (0 - right_now.sec).second
+	  end
 
  end
