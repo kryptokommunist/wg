@@ -3,8 +3,8 @@ class MatesController < ApplicationController
 	def change_assigned_area
 		@mate = Mate.find_by(id: params[:id])
 
-		if @mate then
-			@mate.current_duty.update_columns(area_id: @mate.next_area_id),
+		if @mate
+			@mate.current_duty.update_columns(area_id: @mate.next_area_id,
 											  due_to: next_sunday(@mate.current_duty.due_to - 7.days)
 											  )
 			@mate.reload # reload for use in view
