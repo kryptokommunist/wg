@@ -62,7 +62,7 @@ class WebhooksController < ApplicationController
   def remind_of_duties
 
     Mate.all.each do |mate|
-      if mate.current_duty.due_to <= Time.zone.now + 5.hours  # if due_to is 24:00, get's send at 21:00
+      if mate.current_duty.due_to <= Time.zone.now + 1.day  # if due_to is 24:00, get's send at 21:00
         message = "Hi #{mate.first_name},\ndeine noch offene Aufgabe: #{mate.current_duty.area.name}\nBitte erledige sie, bzw. trage die Erledigung ein oder antworte 'habs :)'!\nLink: #{root_url + "##{mate.first_name.downcase}"}\nDanke!\n\nDein Putzbot\n\nSauberkeit: Wer reinigt, entfernt nichts, sondern verteilt nur anders."
         send_message(mate.chat_id, message) #needs to be replaced
       end
